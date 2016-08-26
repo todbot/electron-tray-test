@@ -1,5 +1,5 @@
 {
-  "name": "tray-demo",
+  "name": "electron-tray-test",
   "description": "simple example showing tray usage in Electron, taken from @hokein/electron-sample-apps",
   "version": "1.1.0",
   "main": "main.js",

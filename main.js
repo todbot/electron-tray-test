@@ -2,12 +2,12 @@ const {app, Tray, Menu, BrowserWindow} = require('electron');
 const path = require('path');
 
 const iconPath = path.join(__dirname, 'icon.png');
-let appIcon = null;
+let tray = null;
 let win = null;
 
 app.on('ready', function(){
   win = new BrowserWindow({show: false});
-  appIcon = new Tray(iconPath);
+  tray = new Tray(iconPath);
   var contextMenu = Menu.buildFromTemplate([
     {
       label: 'Item1',
@@ -39,15 +39,15 @@ app.on('ready', function(){
       selector: 'terminate:',
     }
   ]);
-  appIcon.on('click', function() {
+  tray.on('click', function() {
       console.log("tray click");
   });
-  appIcon.on('right-click', function() {
+  tray.on('right-click', function() {
       console.log("tray right-click");
   });
-  appIcon.on('double-click', function() {
+  tray.on('double-click', function() {
       console.log("tray double-click");
   });
-  appIcon.setToolTip('This is my application.');
-  appIcon.setContextMenu(contextMenu);
+  tray.setToolTip('This is my application.');
+  tray.setContextMenu(contextMenu);
 });
