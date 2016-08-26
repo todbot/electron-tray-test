@@ -41,7 +41,7 @@ app.on('ready', function(){
     },
     { label: 'Quit',
       accelerator: 'Command+Q',
-      selector: 'terminate:',
+      role: 'quit',
     }
   ]);
 
@@ -53,6 +53,9 @@ app.on('ready', function(){
   });
   tray.on('right-click', function() {
       console.log("tray right-click");
+      if( lazyMenu ) {
+        tray.popUpContextMenu( contextMenu );
+      }
   });
   tray.on('double-click', function() {
       console.log("tray double-click");
