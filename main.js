@@ -7,7 +7,7 @@ let win = null;
 
 // set this to false to have contextMenu immediately attached to Tray
 // set this to true to have contenxtMenu dynamically added on click event
-let lazyMenu = false;
+let lazyMenu = true;
 
 app.on('ready', function(){
   win = new BrowserWindow({show: false});

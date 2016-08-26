@@ -1,5 +1,5 @@
 # electron-tray-test
-Testing out Tray API in Electron, showing how click event does not work on MacOSX
+Testing out Tray API in Electron, showing Tray click event behavior
 
 To try out:
 
@@ -8,10 +8,15 @@ npm install
 npm run start
 ```
 
-In the menu bar / tray, you will see a heart icon.
+Upon running the app, you will see a heart icon in the menu bar / tray.
 
-Click on it in various ways, notice how nothing happens in the terminal.
+If the `lazyMenu` boolean was set to `false`, the contextMenu is attached
+to the Tray on startup. Now, if you click on it in various ways,
+notice how nothing is printed in the terminal.  This is expected behavior.
+(See issue electron/electron#4796)
 
+If the `lazyMenu` boolean was set to `true`, then it is up to the `click`
+and `right-click` Tray event handlers to call `tray.popUpContextMenu()`.
 
 In `main.js`, there are the following block of event handlers:
 ```
@@ -26,5 +31,5 @@ tray.on('double-click', function() {
 });
 ```
 
-On Mac OS X 10.11.6, none of the events are fired using the trackpad,
-only the 'right-click' event is fired when using an external mouse.
+Note that on Mac OS X, only the 'right-click' event is fired when
+using an external mouse, not from ctrl-click on a trackpad.
