@@ -5,9 +5,14 @@ const iconPath = path.join(__dirname, 'icon.png');
 let tray = null;
 let win = null;
 
+// set this to false to have contextMenu immediately attached to Tray
+// set this to true to have contenxtMenu dynamically added on click event
+let lazyMenu = false;
+
 app.on('ready', function(){
   win = new BrowserWindow({show: false});
   tray = new Tray(iconPath);
+
   var contextMenu = Menu.buildFromTemplate([
     {
       label: 'Item1',
@@ -39,8 +44,12 @@ app.on('ready', function(){
       selector: 'terminate:',
     }
   ]);
+
   tray.on('click', function() {
       console.log("tray click");
+      if( lazyMenu ) {
+        tray.popUpContextMenu( contextMenu );
+      }
   });
   tray.on('right-click', function() {
       console.log("tray right-click");
@@ -48,6 +57,9 @@ app.on('ready', function(){
   tray.on('double-click', function() {
       console.log("tray double-click");
   });
+
   tray.setToolTip('This is my application.');
-  tray.setContextMenu(contextMenu);
+  if( !lazyMenu ) {
+    tray.setContextMenu(contextMenu);
+  }
 });
